@@ -1,0 +1,96 @@
+.summary {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 1.5rem 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.statCard {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.statCard.complete {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  border-color: #38a169;
+}
+
+.statCard.complete .statValue,
+.statCard.complete .statLabel {
+  color: white;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.requirement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  border-radius: 10px;
+  color: white;
+}
+
+.requirementLabel {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.requirementValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .summary {
+    padding: 1.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .requirement {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
