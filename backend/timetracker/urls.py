@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.db import connection
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 import os
 
 def home(request):
@@ -56,12 +57,19 @@ def health_check(request):
             'message': 'Database might not be migrated yet'
         }, status=500)
 
+def serve_react_assets(request, path):
+    """Serve React static assets"""
+    asset_path = settings.BASE_DIR.parent / 'dist' / path
+    if asset_path.exists():
+        return FileResponse(open(asset_path, 'rb'))
+    return HttpResponse(status=404)
+
 def serve_react(request, path=''):
     """Serve React app"""
     try:
         index_path = settings.BASE_DIR.parent / 'dist' / 'index.html'
         if index_path.exists():
-            with open(index_path, 'r') as f:
+            with open(index_path, 'r', encoding='utf-8') as f:
                 return HttpResponse(f.read(), content_type='text/html')
         else:
             return JsonResponse({
@@ -77,11 +85,12 @@ urlpatterns = [
     path('health/', health_check, name='health'),
     path('admin/', admin.site.urls),
     path('api/', include('tracker.urls')),
+    # Serve React assets
+    re_path(r'^assets/(?P<path>.*)$', serve_react_assets, name='react-assets'),
 ]
 
 # Serve static files
-if not settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Serve React app for all other routes (must be last)
 urlpatterns += [
