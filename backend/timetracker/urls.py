@@ -15,9 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.http import JsonResponse
 from django.db import connection
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 def home(request):
     return JsonResponse({
@@ -54,8 +57,17 @@ def health_check(request):
         }, status=500)
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('api-info/', home, name='api-info'),
     path('health/', health_check, name='health'),
     path('admin/', admin.site.urls),
     path('api/', include('tracker.urls')),
 ]
+
+# Serve React app for all other routes
+urlpatterns += [
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
+]
+
+# Serve static files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

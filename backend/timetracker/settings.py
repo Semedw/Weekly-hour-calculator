@@ -69,7 +69,7 @@ ROOT_URLCONF = 'timetracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.parent / 'dist'],  # React build output
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,6 +141,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional directories for static files (for serving React build)
+STATICFILES_DIRS = [
+    BASE_DIR.parent / 'dist',  # React build output
+] if (BASE_DIR.parent / 'dist').exists() else []
 
 # WhiteNoise configuration
 STORAGES = {
