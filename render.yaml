@@ -14,7 +14,7 @@ services:
         fromDatabase:
           name: weekly-hour-calculator-db
           property: connectionString
-    healthCheckPath: /api/
+    healthCheckPath: /
     
 databases:
   # PostgreSQL Database
