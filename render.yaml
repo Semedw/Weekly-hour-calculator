@@ -1,0 +1,23 @@
+services:
+  # Web Service
+  - type: web
+    name: weekly-hour-calculator
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && gunicorn timetracker.wsgi --log-file -
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: weekly-hour-calculator-db
+          property: connectionString
+    healthCheckPath: /api/
+    
+databases:
+  # PostgreSQL Database
+  - name: weekly-hour-calculator-db
+    databaseName: weekly_hour_calculator
+    plan: free

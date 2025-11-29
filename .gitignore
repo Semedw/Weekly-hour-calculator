@@ -23,8 +23,28 @@ dist-ssr
 *.sln
 *.sw?
 
-#virtual environments
+# Python / Django
+*.py[cod]
+*$py.class
+*.so
+.Python
+__pycache__/
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+
+# Virtual environments
 .env
 .venv
 venv/
 ENV/
+env/
+
+# Django stuff
+*.pot
+local_settings.py
+staticfiles/
+media/
+
+# Heroku
+.heroku/
