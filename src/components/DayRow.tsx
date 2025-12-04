@@ -1,5 +1,5 @@
 import React from 'react';
-import { calculateDailyHours, TimeSession } from '../utils/timeCalculations';
+import { calculateDailyHours, TimeSession, formatHoursMinutes } from '../utils/timeCalculations';
 import WheelTimePicker from './WheelTimePicker';
 import styles from './DayRow.module.css';
 
@@ -27,8 +27,7 @@ const DayRow: React.FC<DayRowProps> = ({
       <div className={styles.dayHeader}>
         <div className={styles.dayName}>{day}</div>
         <div className={styles.dayTotal}>
-          <span className={styles.hoursValue}>{totalHours.toFixed(2)}</span>
-          <span className={styles.hoursLabel}>hours</span>
+          <span className={styles.hoursValue}>{formatHoursMinutes(totalHours)}</span>
         </div>
       </div>
       
@@ -50,7 +49,7 @@ const DayRow: React.FC<DayRowProps> = ({
               />
             </div>
             <div className={styles.sessionHours}>
-              {calculateDailyHours(session.checkIn, session.checkOut).toFixed(2)}h
+              {formatHoursMinutes(calculateDailyHours(session.checkIn, session.checkOut))}
             </div>
             {sessions.length > 1 && (
               <button

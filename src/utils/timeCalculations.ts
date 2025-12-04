@@ -66,3 +66,15 @@ export const DAYS_OF_WEEK = [
 ];
 
 export const WEEKLY_REQUIREMENT = 15;
+
+/**
+ * Format hours to "XX H XX Min" format
+ * @param hours - Number of hours (can have decimals)
+ * @returns Formatted string like "2 H 30 Min"
+ */
+export function formatHoursMinutes(hours: number): string {
+  const totalMinutes = Math.round(hours * 60);
+  const h = Math.floor(totalMinutes / 60);
+  const min = totalMinutes % 60;
+  return `${h}h ${min}min`;
+}

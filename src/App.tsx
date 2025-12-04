@@ -190,6 +190,16 @@ function App() {
     }
   };
 
+  const handleRemoveAll = () => {
+    if (window.confirm('Are you sure you want to remove all sessions? This will reset all your time entries.')) {
+      setWeekData(DAYS_OF_WEEK.map(day => ({
+        day,
+        sessions: [{ checkIn: '', checkOut: '' }],
+      })));
+      setHasUnsavedChanges(true);
+    }
+  };
+
   if (!currentUser) {
     return <Auth onLogin={handleLogin} onRegister={handleRegister} />;
   }
@@ -256,6 +266,33 @@ function App() {
                     }}
                   >
                     Save
+                  </button>
+                  <button 
+                    onClick={handleRemoveAll}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#dc2626';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ef4444';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                    }}
+                  >
+                    Remove All
                   </button>
                 </div>
               </div>

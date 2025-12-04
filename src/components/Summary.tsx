@@ -1,5 +1,5 @@
 import React from 'react';
-import { WEEKLY_REQUIREMENT } from '../utils/timeCalculations';
+import { WEEKLY_REQUIREMENT, formatHoursMinutes } from '../utils/timeCalculations';
 import styles from './Summary.module.css';
 
 interface SummaryProps {
@@ -17,12 +17,12 @@ const Summary: React.FC<SummaryProps> = ({ totalHours }) => {
       
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <div className={styles.statValue}>{totalHours.toFixed(2)}</div>
+          <div className={styles.statValue}>{formatHoursMinutes(totalHours)}</div>
           <div className={styles.statLabel}>Total Hours</div>
         </div>
         
         <div className={styles.statCard}>
-          <div className={styles.statValue}>{remainingHours.toFixed(2)}</div>
+          <div className={styles.statValue}>{formatHoursMinutes(remainingHours)}</div>
           <div className={styles.statLabel}>Hours Remaining</div>
         </div>
         
